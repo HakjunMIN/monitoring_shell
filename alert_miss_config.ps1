@@ -5,7 +5,15 @@ if ($args.Length -eq 0) {
     exit
 }
 
-Connect-AzAccount
+# Connect-AzAccount
+
+try {
+    $AzureContext = (Connect-AzAccount -Identity).context
+}
+catch{
+    Write-Output "There is no system-assigned user identity. Aborting."; 
+    exit
+}
 
 $minimum_route_table = $args[0]
 $resource_groups = $args[1..($args.Length-1)]

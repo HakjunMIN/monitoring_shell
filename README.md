@@ -124,3 +124,14 @@
     * Scale out할 대상 AppGW정보 입력 
         * `RESOURCEGROUPNAME`, `APPGWNAME`, `PERCENTAGEINCREASE` 
 
+> [!Note]
+> 해당 쉘 구동 시 적절한 Credential필요. Azure Automation으로 Powershell구동을 가정하여 아래로직이 사용되나 개별 계정 로그인 시 `Connect-AzAccount`로 교체
+
+```ps1
+try {
+    $AzureContext = (Connect-AzAccount -Identity).context
+}
+catch{
+    Write-Output "There is no system-assigned user identity. Aborting."; 
+    exit
+}```
